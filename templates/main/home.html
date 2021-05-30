@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+{% block content %}
+<div class="ui leaderboard test ad" data-text="{{hello}} --- {{user}} Welcome to GetSocial "></div>
+<h3><p>GetSocial is a social media platform where you can connenct with your friends and share post and comments.</p></h3>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    console.log('working')
+})
+</script>
+{% endblock scripts %}

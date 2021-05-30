@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Search Results
+{% endblock title %}
+
+{% block content %}
+<center>
+  {% if searched %}
+<h1>You search for {{searched}}</h1>
+<br>
+{% for obj in searchedprofile %}
+{{obj}} --- {{obj.user}} ---{{obj.mobile}} ---{{obj.email}}
+{% endfor %}
+<br>
+{% else %}
+<h1>Hey You didnot type anything</h1>
+{% endif %}
+</center>
+{% endblock content %}

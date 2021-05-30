@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--Custom css-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+
+    <!-- semantic UI -->
+    <link rel="stylesheet" type='text/css' href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+
+
+    <title>GetSocial - {% block title %}{% endblock title %}</title>
+  </head>
+  <body>
+    {% include 'main/navbar.html' %}
+    <div class="ui container">
+      {% block content %}
+      {% endblock content %}
+    </div>
+
+    {% block scripts %}
+    {% endblock scripts %}
+
+    <!-- Autosuggestion friends -->
+    <script>
+      $( function() {
+     var availableTags = [
+       {% for friend in profile.get_friends %}
+       "{{friend}}",
+       {% endfor %}
+      ];
+      $( "#q" ).autocomplete({
+       source: availableTags
+     });
+      } );
+    </script>
+
+
+   <!--Custom js ADD-->
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+
+
+
+  </body>
+</html>
