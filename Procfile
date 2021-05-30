@@ -1,1 +1,1 @@
-web: waitress-serve --listen=$PORT socialnetwork.wsgi:application
+web: waitress-serve --port=$PORT socialnetwork.wsgi:application
