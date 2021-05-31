@@ -22,13 +22,28 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+
+
+
+# SECRET_KEY = os.environ['SECRET_KEY']
+
+# DEBUG = False
+
+
+
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
+
+# SECURITY WARNING: keep the secret key used in production secret!
+
+SECRET_KEY = 'django-insecure-&kl98sz90ki!vu-#og8q)$k4766+yk1z)1%2m$7)fa!c36ht!l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+
+# ALLOWED_HOSTS = []
 
 ALLOWED_HOSTS = ["getsocialpeople.herokuapp.com", "localhost"]
-
 
 # Application definition
 
@@ -152,15 +167,30 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static_root')
+
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media_root')
+
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-os.path.join(BASE_DIR, 'static')
-]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static_root')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media_root')
+STATIC_ROOT = os.path.join(BASE_DIR, "static_media", "static-root")
+
+
+
+#STATIC_ROOT = "/home/cfedeploy/webapps/cfehome_static_root/"
+
+MEDIA_URL = "/media/"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "static_media", "media-root")
+
+
+
 
 
 # os.path.join(BASE_DIR,'templates')
