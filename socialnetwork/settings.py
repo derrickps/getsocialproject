@@ -22,28 +22,13 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
-
-
-# SECRET_KEY = os.environ['SECRET_KEY']
-
-# DEBUG = False
-
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-
 SECRET_KEY = 'django-insecure-&kl98sz90ki!vu-#og8q)$k4766+yk1z)1%2m$7)fa!c36ht!l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = []
 
-ALLOWED_HOSTS = ["getsocialpeople.herokuapp.com", "localhost"]
 
 # Application definition
 
@@ -54,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'social',
     'posts',
     'profiles',
@@ -65,7 +51,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 ]
 
-
+#LOGIN_URL = '/admin/'
 LOGIN_REDIRECT_URL = '/posts'
 
 # ---------- AUTHENTICATION--------
@@ -73,6 +59,10 @@ ACCOUNT_AUTHENTICATION_METHOD = "username_email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_UNIQUE = True
 ACCOUNT_USERNAME_REQUIRED = True
+
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_EMAIL_UNIQUE = True
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
@@ -150,6 +140,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+REST_FRAMEWORK ={
+    'DEFAULT_FILTER_BACKENDS':('rest_framework.filters.SearchFilter',),
+}
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -168,32 +164,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static_root')
+STATICFILES_DIRS = [
+os.path.join(BASE_DIR, 'static')
+]
 
+# STATIC_ROOT = os.path.join(BASE_DIR, "static_media", "static-root")
+#
 # MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media_root')
+# MEDIA_ROOT = os.path.join(BASE_DIR, "static_media", "media-root")
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static_cdn", "static_root")
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
-
-STATIC_ROOT = os.path.join(BASE_DIR, "static_media", "static-root")
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "static_cdn", "media_root")
 
 
-
-#STATIC_ROOT = "/home/cfedeploy/webapps/cfehome_static_root/"
-
-MEDIA_URL = "/media/"
-
-MEDIA_ROOT = os.path.join(BASE_DIR, "static_media", "media-root")
-
-
-
-
-
-# os.path.join(BASE_DIR,'templates')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

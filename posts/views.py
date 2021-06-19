@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from .models import Post, Like
+from .models import Post
 from profiles.models import Profile
 from .forms import PostModelForm, CommentModelForm
 from django.views.generic import UpdateView, DeleteView
@@ -21,13 +21,14 @@ def post_comment_create_and_list_view(request):
     p_form = PostModelForm()
     c_form = CommentModelForm()
     post_added = False
+
     profile = Profile.objects.get(user=request.user)
 
     if 'submit_p_form' in request.POST:  # Post added section
         print(request.POST)
         p_form = PostModelForm(request.POST, request.FILES)
         if p_form.is_valid():
-            instance = p_form.save(commit=False)
+            instance = p_form.save(commit=False) # Create, but don't save the new instance.
             instance.author = profile
             instance.save()
             p_form = PostModelForm()
@@ -36,7 +37,7 @@ def post_comment_create_and_list_view(request):
     if 'submit_c_form' in request.POST:  # comment added section
         c_form = CommentModelForm(request.POST)
         if c_form.is_valid():
-            instance = c_form.save(commit=False)
+            instance = c_form.save(commit=False) # Create, but don't save the new instance.
             instance.user = profile
             instance.post = Post.objects.get(id=request.POST.get('post_id'))
             instance.save()
@@ -66,16 +67,17 @@ def like_unlike_post(request):
         else:
             post_obj.liked.add(profile)
 
-        like, created = Like.objects.get_or_create(user=profile, post_id=post_id)
-        if not created:
-            if like.value=='Like':
-                like.value='Unlike'
-            else:
-                like.value='Like'
-        else:
-            like.value='Like'
+        # like, created = Profile.objects.get_or_create(user=profile, post_id=post_id)
+
+        # if not created:
+        #     if like.value=='Like':
+        #         like.value='Unlike'
+        #     else:
+        #         like.value='Like'
+        # else:
+        #     like.value='Like'
             post_obj.save()
-            like.save()
+            # like.save()
     return redirect('posts:main-post-view')
 
 

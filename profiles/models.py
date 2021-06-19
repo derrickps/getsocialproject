@@ -36,6 +36,9 @@ class ProfileManager(models.Manager):
         profiles = Profile.objects.all().exclude(user=me)
         return profiles
 
+    def get_friendsAPI(self):
+        friendlist = Profile.objects.all().values('friends',)
+        return friendlist
 
 #------------------------------------------------- USER PROFILE MODEL---------------------------------------
 class Profile(models.Model):   # Profile model
@@ -49,6 +52,7 @@ class Profile(models.Model):   # Profile model
     slug = models.SlugField(unique=True, blank=True)
     updated = models.DateTimeField(auto_now=True, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
+
 
     objects = ProfileManager()   # calling profile model manager
 
@@ -70,20 +74,20 @@ class Profile(models.Model):   # Profile model
     def get_all_authors_posts(self): # get all posts
         return self.posts.all()
 
-    def get_likes_given_no(self): # get total no. of likes given
-        likes = self.like_set.all()
-        total_liked = 0
-        for item in likes:
-            if item.value=='Like':
-                total_liked += 1
-        return total_liked
-
-    def get_likes_recieved_no(self):  # get total no. of like recieved
-        posts = self.posts.all()
-        total_liked = 0
-        for item in posts:
-            total_liked += item.liked.all().count()
-        return total_liked
+    # def get_likes_given_no(self): # get total no. of likes given
+    #     likes = self.like_set.all()
+    #     total_liked = 0
+    #     for item in likes:
+    #         if item.value=='Like':
+    #             total_liked += 1
+    #     return total_liked
+    #
+    # def get_likes_recieved_no(self):  # get total no. of like recieved
+    #     posts = self.posts.all()
+    #     total_liked = 0
+    #     for item in posts:
+    #         total_liked += item.liked.all().count()
+    #     return total_liked
 
 
 
@@ -138,3 +142,8 @@ class Relationship(models.Model):
 
     def __str__(self):
         return f"{self.sender}-{self.receiver}-{self.status}"
+
+
+
+
+
